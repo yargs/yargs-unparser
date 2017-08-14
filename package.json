@@ -1,0 +1,40 @@
+{
+  "name": "yargs-unparser",
+  "description": "Converts back a yargs argv object to its original array form.",
+  "version": "1.0.1",
+  "keywords": [
+    "yargs",
+    "unparse",
+    "expand",
+    "inverse"
+  ],
+  "author": "André Cruz <andre@moxy.studio>",
+  "homepage": "https://github.com/moxystudio/yargs-unparser",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:moxystudio/yargs-unparser.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:staged": "lint-staged",
+    "test": "jest --env node --coverage",
+    "test:watch": "jest --env node --watch",
+    "posttest": "npm run lint",
+    "precommit": "npm run lint:staged"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-moxy": "^3.0.0",
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.2"
+  },
+  "dependencies": {
+    "flat": "^4.0.0",
+    "lodash": "^4.17.4"
+  }
+}
