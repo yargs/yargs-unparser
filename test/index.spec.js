@@ -4,13 +4,13 @@ const parse = require('yargs-parser');
 const unparse = require('../');
 
 it('should unparse options whose values are primitives', () => {
-    const argv = parse(['node', 'cli.js', '--no-boolean', '--number', '4', '--string', 'foo'], {
+    const argv = parse(['node', 'cli.js', '--no-boolean1', '--boolean2', '--number', '4', '--string', 'foo'], {
         number: 'number',
         string: 'string',
-        boolean: 'boolean',
+        boolean: ['boolean1', 'boolean2'],
     });
 
-    expect(unparse(argv)).toEqual(['node', 'cli.js', '--no-boolean', '--number', '4', '--string', 'foo']);
+    expect(unparse(argv)).toEqual(['node', 'cli.js', '--no-boolean1', '--boolean2', '--number', '4', '--string', 'foo']);
 });
 
 it('should unparse options whose values are arrays', () => {
@@ -86,11 +86,13 @@ it('should add positional arguments at the start', () => {
 });
 
 it('should add arguments after -- at the end', () => {
-    it('should add positional arguments at the start', () => {
-        const argv = parse(['node', 'cli.js', '--string', 'foo', '--', '--number', '1']);
-
-        expect(unparse(argv)).toEqual(['node', 'cli.js', '--string', 'foo', '--', '--number', '1']);
+    const argv = parse(['node', 'cli.js', '--string', 'foo', '--', '--number', '1'], {
+        configuration: {
+            'populate--': true,
+        },
     });
+
+    expect(unparse(argv)).toEqual(['node', 'cli.js', '--string', 'foo', '--', '--number', '1']);
 });
 
 it('should ignore aliases', () => {

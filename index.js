@@ -70,7 +70,7 @@ function unparser(argv, options) {
     }
 
     // Unparse ending (--) arguments if set
-    argv['--'] && unparsed.push(...argv['--']);
+    argv['--'] && unparsed.push('--', ...argv['--']);
 
     return unparsed;
 }
