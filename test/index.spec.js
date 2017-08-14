@@ -72,6 +72,12 @@ it('should not duplicate keys that are camel-cased', () => {
     expect(unparse(argv)).toEqual(['node', 'cli.js', '--some-string', 'foo']);
 });
 
+it('should keep camel-cased keys if standard ones were not found on argv', () => {
+    const argv = parse(['node', 'cli.js', '--someNumber', '1']);
+
+    expect(unparse(argv)).toEqual(['node', 'cli.js', '--someNumber', '1']);
+});
+
 it('should throw on nullish option values', () => {
     expect(() => unparse({ foo: null })).toThrow('Value of `foo` cannot be null or undefined');
     expect(() => unparse({ foo: undefined })).toThrow('Value of `foo` cannot be null or undefined');

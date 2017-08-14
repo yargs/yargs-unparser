@@ -5,14 +5,16 @@ const castArray = require('lodash/castArray');
 const some = require('lodash/some');
 const isPlainObject = require('lodash/isPlainObject');
 const camelCase = require('lodash/camelCase');
+const kebabCase = require('lodash/kebabCase');
 const omitBy = require('lodash/omitBy');
 
 function isAlias(key, alias) {
     return some(alias, (aliases) => castArray(aliases).indexOf(key) !== -1);
 }
 
-function isCamelCased(key) {
-    return /[A-Z]/.test(key) && camelCase(key) === key;
+function isCamelCased(key, argv) {
+    return /[A-Z]/.test(key) && camelCase(key) === key && // Is it camel case?
+        argv[kebabCase(key)] != null; // Is the standard version defined?
 }
 
 function keyToFlag(key) {
@@ -63,7 +65,7 @@ function unparser(argv, options) {
         // Remove aliases
         isAlias(key, options.alias) ||
         // Remove camel-cased
-        isCamelCased(key));
+        isCamelCased(key, argv));
 
     for (const key in optionsArgv) {
         unparseOption(key, optionsArgv[key], unparsed);
