@@ -6,7 +6,8 @@
     "yargs",
     "unparse",
     "expand",
-    "inverse"
+    "inverse",
+    "argv"
   ],
   "author": "André Cruz <andre@moxy.studio>",
   "homepage": "https://github.com/moxystudio/yargs-unparser",

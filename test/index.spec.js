@@ -36,11 +36,13 @@ it('should unparse options whose values are not primitives, arrays or objects', 
         }
     }
 
+    const date = new Date(1502708276274);
+
     expect(unparse({
-        foo: new Date(1502708276274),
+        foo: date,
         bar: /bar/,
         baz: new Baz(),
-    })).toEqual(['--foo', 'Mon Aug 14 2017 11:57:56 GMT+0100 (WEST)', '--bar', '/bar/', '--baz', 'baz']);
+    })).toEqual(['--foo', date.toString(), '--bar', '/bar/', '--baz', 'baz']);
 });
 
 it('should unparse options whose values are empty strings correctly', () => {
