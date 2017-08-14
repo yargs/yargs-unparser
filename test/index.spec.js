@@ -101,6 +101,14 @@ it('should add arguments after -- at the end', () => {
     expect(unparse(argv)).toEqual(['node', 'cli.js', '--string', 'foo', '--', '--number', '1']);
 });
 
+it('should ignore $0', () => {
+    const argv = parse(['node', 'cli.js', 'foo', '--string', 'bar']);
+
+    argv.$0 = 'foo.js';
+
+    expect(unparse(argv)).toEqual(['node', 'cli.js', 'foo', '--string', 'bar']);
+});
+
 it('should ignore aliases', () => {
     const alias = {
         string: 's', // Single alias

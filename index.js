@@ -55,13 +55,13 @@ function unparser(argv, options) {
 
     const unparsed = [];
 
-    // Unparse positional arguments first
+    // Unparse positional arguments
     argv._ && unparsed.push(...argv._);
 
     // Unparse option arguments
     const optionsArgv = omitBy(argv, (value, key) =>
-        // Remove special _ & --
-        key === '_' || key === '--' ||
+        // Remove special _, -- and $0
+        key === '_' || key === '--' || key === '$0' ||
         // Remove aliases
         isAlias(key, options.alias) ||
         // Remove camel-cased
