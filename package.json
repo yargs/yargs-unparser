@@ -1,7 +1,7 @@
 {
   "name": "yargs-unparser",
   "description": "Converts back a yargs argv object to its original array form.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "yargs",
     "unparse",
