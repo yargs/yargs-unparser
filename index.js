@@ -22,10 +22,6 @@ function keyToFlag(key) {
 }
 
 function unparseOption(key, value, unparsed) {
-    if (value == null) {
-        throw new TypeError(`Value of \`${key}\` cannot be null or undefined`);
-    }
-
     if (typeof value === 'string') {
         unparsed.push(keyToFlag(key), value);
     } else if (value === true) {
@@ -41,7 +37,7 @@ function unparseOption(key, value, unparsed) {
             unparseOption(`${key}.${flattenedKey}`, flattened[flattenedKey], unparsed);
         }
     // Fallback case (numbers and other types)
-    } else {
+    } else if (value != null) {
         unparsed.push(keyToFlag(key), `${value}`);
     }
 }

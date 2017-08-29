@@ -78,11 +78,13 @@ it('should keep camel-cased keys if standard ones were not found on argv', () =>
     expect(unparse(argv)).toEqual(['node', 'cli.js', '--someNumber', '1']);
 });
 
-it('should throw on nullish option values', () => {
-    expect(() => unparse({ foo: null })).toThrow('Value of `foo` cannot be null or undefined');
-    expect(() => unparse({ foo: undefined })).toThrow('Value of `foo` cannot be null or undefined');
-    expect(() => unparse({ foo: 0 })).not.toThrow();
-    expect(() => unparse({ foo: '' })).not.toThrow();
+it('should ignore nullish option values', () => {
+    const argv = parse(['node', 'cli.js'], {
+        number: 'n',
+        string: 's',
+    });
+
+    expect(unparse(argv)).toEqual(['node', 'cli.js']);
 });
 
 it('should add positional arguments at the start', () => {
