@@ -1,5 +1,6 @@
 'use strict';
 
+const yargs = require('yargs/yargs');
 const flatten = require('flat');
 const castArray = require('lodash/castArray');
 const some = require('lodash/some');
@@ -42,22 +43,45 @@ function unparseOption(key, value, unparsed) {
     }
 }
 
-// ------------------------------------------------------------
+function unparsePositional(argv, options, unparsed) {
+    const knownPositional = [];
 
-function unparser(argv, options) {
-    options = Object.assign({
-        alias: {},
-    }, options);
+    // Unparse command if set, collecting all known positional arguments
+    // e.g.: build <first> <second> <rest...>
+    if (options.command) {
+        const { 0: cmd, index } = options.command.match(/[^<[]*/);
+        const { demanded, optional } = yargs()
+        .getCommandInstance()
+        .parseCommand(`foo ${options.command.substr(index + cmd.length)}`);
 
-    const unparsed = [];
+        // Push command (can be a deep command)
+        unparsed.push(...cmd.trim().split(/\s+/));
 
-    // Unparse positional arguments
-    argv._ && unparsed.push(...argv._);
+        // Push positional arguments
+        [...demanded, ...optional].forEach(({ cmd: cmds, variadic }) => {
+            knownPositional.push(...cmds);
 
-    // Unparse option arguments
+            const cmd = cmds[0];
+            const args = (variadic ? argv[cmd] || [] : [argv[cmd]])
+            .filter((arg) => arg != null)
+            .map((arg) => `${arg}`);
+
+            unparsed.push(...args);
+        });
+    }
+
+    // Unparse unkown positional arguments
+    argv._ && unparsed.push(...argv._.slice(knownPositional.length));
+
+    return knownPositional;
+}
+
+function unparseOptions(argv, options, knownPositional, unparsed) {
     const optionsArgv = omitBy(argv, (value, key) =>
+        // Remove positional arguments
+        knownPositional.includes(key) ||
         // Remove special _, -- and $0
-        key === '_' || key === '--' || key === '$0' ||
+        ['_', '--', '$0'].includes(key) ||
         // Remove aliases
         isAlias(key, options.alias) ||
         // Remove camel-cased
@@ -66,9 +90,32 @@ function unparser(argv, options) {
     for (const key in optionsArgv) {
         unparseOption(key, optionsArgv[key], unparsed);
     }
+}
 
+function unparseEndOfOptions(argv, options, unparsed) {
     // Unparse ending (--) arguments if set
     argv['--'] && unparsed.push('--', ...argv['--']);
+}
+
+// ------------------------------------------------------------
+
+function unparser(argv, options) {
+    options = Object.assign({
+        alias: {},
+        command: null,
+    }, options);
+
+    const unparsed = [];
+
+    // Unparse known & unknown positional arguments (foo <first> <second> [rest...])
+    // All known positional will be returned so that they are not added as flags
+    const knownPositional = unparsePositional(argv, options, unparsed);
+
+    // Unparse option arguments (--foo hello --bar hi)
+    unparseOptions(argv, options, knownPositional, unparsed);
+
+    // Unparse "end-of-options" arguments (stuff after " -- ")
+    unparseEndOfOptions(argv, options, unparsed);
 
     return unparsed;
 }

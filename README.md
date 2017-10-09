@@ -29,23 +29,50 @@ Probably the unparser word doesn't even exist, but it sounds nice and goes well 
 ## Usage
 
 ```js
-const unparse = require('yargs-unparser');
-const parse = require('yargs-parse');
+const parse = require('yargs-parser');
+const unparse = require('yargs-unparse');
 
-unparse(parse(['node', 'cli.js', '--no-boolean', '--number', '4', '--string', 'foo'], {
-    number: 'number',
-    string: 'string',
-    boolean: 'boolean',
-}));
-// ['node', 'cli.js', '--no-boolean', '--number', '4', '--string', 'foo']);
+const argv = parse(['--no-boolean', '--number', '4', '--string', 'foo'], {
+    boolean: ['boolean'],
+    number: ['number'],
+    string: ['string'],
+});
+// { boolean: false, number: 4, '--string', 'foo', _: [] }
+
+const unparsedArgv = unparse(argv);
+// ['--no-boolean', '--number', '4', '--string', 'foo'];
 ```
 
 The second argument of `unparse` accepts an options object:
 
-- `aliases`: The [aliases](https://github.com/yargs/yargs-parser#requireyargs-parserargs-opts) so that duplicate options aren't generated
+- `alias`: The [aliases](https://github.com/yargs/yargs-parser#requireyargs-parserargs-opts) so that duplicate options aren't generated
+- `command`: The [command](https://github.com/yargs/yargs/blob/master/docs/advanced.md#commands) first argument so that command names and positional arguments are handled correctly
 
+### Example with `command` options
+
+```js
+const yargs = require('yargs');
+const unparse = require('yargs-unparse');
+
+const argv = yargs
+    .command('my-command <positional>', 'My awesome command', (yargs) =>
+        yargs
+        .option('boolean', { type: 'boolean' })
+        .option('number', { type: 'number' })
+        .option('string', { type: 'string' })
+    )
+    .parse(['my-command', 'hello', '--no-boolean', '--number', '4', '--string', 'foo']);
+// { positional: 'hello', boolean: false, number: 4, '--string', 'foo', _: ['my-command'] }
+
+const unparsedArgv = unparse(argv, {
+    command: 'my-command <positional>',
+});
+// ['my-command', 'hello', '--no-boolean', '--number', '4', '--string', 'foo'];
+```
 
 **NOTE**: The returned array can be parsed again by `yargs-parser` using the default configuration. If you used custom configuration that you want `yargs-unparser` to be aware, please fill an [issue](https://github.com/moxystudio/yargs-unparser/issues).
+
+**NOTE**: If you `coerce` in weird ways, things might not work correctly.
 
 
 ## Tests
