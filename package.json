@@ -38,6 +38,6 @@
   "dependencies": {
     "flat": "^4.0.0",
     "lodash": "^4.17.4",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   }
 }
