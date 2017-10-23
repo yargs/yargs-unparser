@@ -13,6 +13,10 @@ function isAlias(key, alias) {
     return some(alias, (aliases) => castArray(aliases).indexOf(key) !== -1);
 }
 
+function hasDefaultValue(key, value, defaults) {
+    return value === defaults[key];
+}
+
 function isCamelCased(key, argv) {
     return /[A-Z]/.test(key) && camelCase(key) === key && // Is it camel case?
         argv[kebabCase(key)] != null; // Is the standard version defined?
@@ -84,6 +88,8 @@ function unparseOptions(argv, options, knownPositional, unparsed) {
         ['_', '--', '$0'].includes(key) ||
         // Remove aliases
         isAlias(key, options.alias) ||
+        // Remove default values
+        hasDefaultValue(key, value, options.default) ||
         // Remove camel-cased
         isCamelCased(key, argv));
 
@@ -102,6 +108,7 @@ function unparseEndOfOptions(argv, options, unparsed) {
 function unparser(argv, options) {
     options = Object.assign({
         alias: {},
+        default: {},
         command: null,
     }, options);
 

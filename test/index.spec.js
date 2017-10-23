@@ -123,6 +123,13 @@ describe('options', () => {
         expect(unparse(argv, { alias })).toEqual(['--string', 'foo', '--number', '1']);
     });
 
+    it('should filter flags with default values via `options.defaults`', () => {
+        const defaults = { foo: false };
+        const argv = parse([], { default: defaults });
+
+        expect(unparse(argv, { default: defaults })).toEqual([]);
+    });
+
     it('should handle known positional arguments specified via `options.command`', () => {
         const command = 'build <first> [second] [rest..]';
         const argv = yargs()

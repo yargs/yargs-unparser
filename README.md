@@ -46,6 +46,7 @@ const unparsedArgv = unparse(argv);
 The second argument of `unparse` accepts an options object:
 
 - `alias`: The [aliases](https://github.com/yargs/yargs-parser#requireyargs-parserargs-opts) so that duplicate options aren't generated
+- `default`: The [default] values so that they flags with their default values are omitted
 - `command`: The [command](https://github.com/yargs/yargs/blob/master/docs/advanced.md#commands) first argument so that command names and positional arguments are handled correctly
 
 ### Example with `command` options
