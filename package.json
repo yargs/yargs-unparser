@@ -16,18 +16,35 @@
     "url": "git@github.com:moxystudio/yargs-unparser.git"
   },
   "license": "MIT",
+  "main": "index.js",
+  "files": [],
   "scripts": {
     "lint": "eslint .",
-    "lint:staged": "lint-staged",
     "test": "jest --env node --coverage",
-    "test:watch": "jest --env node --watch",
-    "posttest": "npm run lint",
-    "precommit": "npm run lint:staged"
+    "prerelease": "npm t && npm run lint",
+    "release": "standard-version",
+    "precommit": "lint-staged",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
+  },
+  "standard-version": {
+    "scripts": {
+      "posttag": "git push --follow-tags origin master && npm publish"
+    }
   },
   "lint-staged": {
-    "*.js": "eslint"
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-angular"
+    ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^4.3.0",
+    "@commitlint/config-angular": "^4.3.0",
     "eslint": "^4.3.0",
     "eslint-config-moxy": "^4.0.0",
     "husky": "^0.14.3",
