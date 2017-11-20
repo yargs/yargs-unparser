@@ -79,7 +79,7 @@ const unparsedArgv = unparse(argv, {
 ## Tests
 
 `$ npm test`   
-`$ npm test:watch` during development
+`$ npm test -- --watch` during development
 
 
 ## License
