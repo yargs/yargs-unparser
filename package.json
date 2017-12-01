@@ -49,7 +49,7 @@
     "eslint-config-moxy": "^4.1.0",
     "husky": "^0.14.3",
     "jest": "^21.0.1",
-    "lint-staged": "^5.0.0",
+    "lint-staged": "^6.0.0",
     "yargs-parser": "^8.0.0"
   },
   "dependencies": {
