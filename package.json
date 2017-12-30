@@ -51,6 +51,7 @@
     "jest": "^22.0.0",
     "lint-staged": "^6.0.0",
     "minimist": "^1.2.0",
+    "standard-version": "^4.2.0",
     "yargs-parser": "^8.0.0"
   },
   "dependencies": {
