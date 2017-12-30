@@ -23,7 +23,7 @@ Probably the unparser word doesn't even exist, but it sounds nice and goes well 
 
 ## Installation
 
-`$ npm install yargs-unparser --save`
+`$ npm install yargs-unparser`
 
 
 ## Usage
@@ -46,7 +46,7 @@ const unparsedArgv = unparse(argv);
 The second argument of `unparse` accepts an options object:
 
 - `alias`: The [aliases](https://github.com/yargs/yargs-parser#requireyargs-parserargs-opts) so that duplicate options aren't generated
-- `default`: The [default] values so that they flags with their default values are omitted
+- `default`: The [default](https://github.com/yargs/yargs-parser#requireyargs-parserargs-opts) values so that they flags with their default values are omitted
 - `command`: The [command](https://github.com/yargs/yargs/blob/master/docs/advanced.md#commands) first argument so that command names and positional arguments are handled correctly
 
 ### Example with `command` options
@@ -71,9 +71,11 @@ const unparsedArgv = unparse(argv, {
 // ['my-command', 'hello', '--no-boolean', '--number', '4', '--string', 'foo'];
 ```
 
-**NOTE**: The returned array can be parsed again by `yargs-parser` using the default configuration. If you used custom configuration that you want `yargs-unparser` to be aware, please fill an [issue](https://github.com/moxystudio/yargs-unparser/issues).
+### Caveats
 
-**NOTE**: If you `coerce` in weird ways, things might not work correctly.
+The returned array can be parsed again by `yargs-parser` using the default configuration. If you used custom configuration that you want `yargs-unparser` to be aware, please fill an [issue](https://github.com/moxystudio/yargs-unparser/issues).
+
+If you `coerce` in weird ways, things might not work correctly.
 
 
 ## Tests
