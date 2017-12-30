@@ -185,8 +185,6 @@ describe('options', () => {
 });
 
 describe('interoperation with other libraries', () => {
-    afterEach(jest.clearAllMocks);
-
     it('should have basic integration with minimist', () => {
         const argv = parse(['--no-cache', '--optimize', '--host', '0.0.0.0', '--collect', 'x', 'y'], {
             boolean: ['cache', 'optimize'],
