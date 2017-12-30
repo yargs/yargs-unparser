@@ -34,7 +34,7 @@ function unparseOption(key, value, unparsed) {
     } else if (value === false) {
         unparsed.push(`--no-${key}`);
     } else if (Array.isArray(value)) {
-        unparsed.push(keyToFlag(key), ...value.map((item) => `${item}`));
+        value.forEach((item) => unparseOption(key, item, unparsed));
     } else if (isPlainObject(value)) {
         const flattened = flatten(value, { safe: true });
 

@@ -2,6 +2,7 @@
 
 const yargs = require('yargs/yargs');
 const parse = require('yargs-parser');
+const minimist = require('minimist');
 const unparse = require('../');
 
 it('should unparse options whose values are primitives', () => {
@@ -19,7 +20,7 @@ it('should unparse options whose values are arrays', () => {
         array: ['array1', 'array2'],
     });
 
-    expect(unparse(argv)).toEqual(['--array1', '1', '2', '--array2', '3', '4']);
+    expect(unparse(argv)).toEqual(['--array1', '1', '--array1', '2', '--array2', '3', '--array2', '4']);
 });
 
 it('should unparse options whose values are objects', () => {
@@ -27,7 +28,7 @@ it('should unparse options whose values are objects', () => {
         array: ['foo.w', 'foo.z'],
     });
 
-    expect(unparse(argv)).toEqual(['--foo.x', 'x', '--foo.y', 'y', '--foo.w', '1', '2', '--foo.z', '3', '4']);
+    expect(unparse(argv)).toEqual(['--foo.x', 'x', '--foo.y', 'y', '--foo.w', '1', '--foo.w', '2', '--foo.z', '3', '--foo.z', '4']);
 });
 
 it('should unparse options whose values are not primitives, arrays or objects', () => {
@@ -180,5 +181,26 @@ describe('options', () => {
         expect(unparse(argv, {
             command,
         })).toEqual(['build', 'foo', '--string', 'hello']);
+    });
+});
+
+describe('interoperation with other libraries', () => {
+    afterEach(jest.clearAllMocks);
+
+    it('should have basic integration with minimist', () => {
+        const argv = parse(['--no-cache', '--optimize', '--host', '0.0.0.0', '--collect', 'x', 'y'], {
+            boolean: ['cache', 'optimize'],
+            string: 'host',
+            array: 'collect',
+        });
+
+        const argvArray = unparse(argv);
+
+        expect(minimist(argvArray)).toMatchObject({
+            cache: false,
+            optimize: true,
+            host: '0.0.0.0',
+            collect: ['x', 'y'],
+        });
     });
 });
