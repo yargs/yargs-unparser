@@ -37,7 +37,7 @@ const argv = parse(['--no-boolean', '--number', '4', '--string', 'foo'], {
     number: ['number'],
     string: ['string'],
 });
-// { boolean: false, number: 4, '--string', 'foo', _: [] }
+// { boolean: false, number: 4, string: 'foo', _: [] }
 
 const unparsedArgv = unparse(argv);
 // ['--no-boolean', '--number', '4', '--string', 'foo'];
@@ -63,7 +63,7 @@ const argv = yargs
         .option('string', { type: 'string' })
     )
     .parse(['my-command', 'hello', '--no-boolean', '--number', '4', '--string', 'foo']);
-// { positional: 'hello', boolean: false, number: 4, '--string', 'foo', _: ['my-command'] }
+// { positional: 'hello', boolean: false, number: 4, string: 'foo', _: ['my-command'] }
 
 const unparsedArgv = unparse(argv, {
     command: 'my-command <positional>',
