@@ -1,6 +1,6 @@
 {
   "name": "yargs-unparser",
-  "description": "Converts back a yargs argv object to its original array form.",
+  "description": "Converts back a yargs argv object to its original array form",
   "version": "1.4.0",
   "keywords": [
     "yargs",
@@ -10,10 +10,10 @@
     "argv"
   ],
   "author": "André Cruz <andre@moxy.studio>",
-  "homepage": "https://github.com/moxystudio/yargs-unparser",
+  "homepage": "https://github.com/yargs/yargs-unparser",
   "repository": {
     "type": "git",
-    "url": "git@github.com:moxystudio/yargs-unparser.git"
+    "url": "git@github.com:yargs/yargs-unparser.git"
   },
   "license": "MIT",
   "main": "index.js",
