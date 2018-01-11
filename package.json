@@ -43,7 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^5.2.4",
+    "@commitlint/cli": "^6.0.0",
     "@commitlint/config-conventional": "^5.2.3",
     "eslint": "^4.3.0",
     "eslint-config-moxy": "^4.1.0",
