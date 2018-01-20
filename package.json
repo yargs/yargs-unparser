@@ -52,7 +52,7 @@
     "lint-staged": "^6.0.0",
     "minimist": "^1.2.0",
     "standard-version": "^4.2.0",
-    "yargs-parser": "^8.0.0"
+    "yargs-parser": "^9.0.0"
   },
   "dependencies": {
     "flat": "^4.0.0",
