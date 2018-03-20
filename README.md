@@ -32,7 +32,7 @@ The code originally lived in [MOXY](https://github.com/moxystudio)'s GitHub but 
 
 ```js
 const parse = require('yargs-parser');
-const unparse = require('yargs-unparse');
+const unparse = require('yargs-unparser');
 
 const argv = parse(['--no-boolean', '--number', '4', '--string', 'foo'], {
     boolean: ['boolean'],
