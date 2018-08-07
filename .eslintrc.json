@@ -4,8 +4,5 @@
         "eslint-config-moxy/es6",
         "eslint-config-moxy/addons/node",
         "eslint-config-moxy/addons/jest"
-    ],
-    "rules": {
-        "func-style": 0
-    }
+    ]
 }

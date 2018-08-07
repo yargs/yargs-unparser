@@ -46,10 +46,10 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^6.0.1",
+    "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.0",
-    "eslint": "^4.3.0",
-    "eslint-config-moxy": "^5.0.0",
+    "eslint": "^5.3.0",
+    "eslint-config-moxy": "^6.0.1",
     "husky": "^0.14.3",
     "jest": "^22.0.0",
     "lint-staged": "^7.0.0",
@@ -60,6 +60,6 @@
   "dependencies": {
     "flat": "^4.0.0",
     "lodash": "^4.17.4",
-    "yargs": "^11.0.0"
+    "yargs": "^12.0.0"
   }
 }
