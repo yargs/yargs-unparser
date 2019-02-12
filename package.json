@@ -60,6 +60,6 @@
   "dependencies": {
     "flat": "^4.1.0",
     "lodash": "^4.17.11",
-    "yargs": "^12.0.5"
+    "yargs": "^13.1.0"
   }
 }
