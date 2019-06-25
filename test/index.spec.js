@@ -80,6 +80,18 @@ it('should keep camel-cased keys if standard ones were not found on argv', () =>
     expect(unparse(argv)).toEqual(['--someNumber', '1']);
 });
 
+it('should not duplicate nested keys that are camel-cased', () => {
+    const argv = parse(['--paths.some-string', 'foo']);
+
+    expect(unparse(argv)).toEqual(['--paths.some-string', 'foo']);
+});
+
+it('should keep nested camel-cased keys if standard ones were not found on argv', () => {
+    const argv = parse(['--paths.someNumber', '1']);
+
+    expect(unparse(argv)).toEqual(['--paths.someNumber', '1']);
+});
+
 it('should ignore nullish option values', () => {
     const argv = parse(['node', 'cli.js'], {
         number: 'n',
