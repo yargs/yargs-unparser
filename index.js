@@ -2,12 +2,12 @@
 
 const yargs = require('yargs/yargs');
 const flatten = require('flat');
-const castArray = require('lodash/castArray');
-const some = require('lodash/some');
-const isPlainObject = require('lodash/isPlainObject');
-const camelCase = require('lodash/camelCase');
-const kebabCase = require('lodash/kebabCase');
-const omitBy = require('lodash/omitBy');
+const castArray = require('lodash.castarray');
+const some = require('lodash.some');
+const isPlainObject = require('lodash.isplainobject');
+const camelCase = require('lodash.camelcase');
+const kebabCase = require('lodash.kebabcase');
+const omitBy = require('lodash.omitby');
 
 function isAlias(key, alias) {
     return some(alias, (aliases) => castArray(aliases).indexOf(key) !== -1);
