@@ -46,20 +46,20 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^7.2.1",
-    "@commitlint/config-conventional": "^8.0.0",
-    "eslint": "^6.0.0",
-    "eslint-config-moxy": "^6.1.1",
-    "husky": "^3.0.0",
-    "jest": "^23.6.0",
-    "lint-staged": "^9.0.0",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "eslint": "^6.1.0",
+    "eslint-config-moxy": "^7.1.0",
+    "husky": "^3.0.1",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.1",
     "minimist": "^1.2.0",
-    "standard-version": "^4.4.0",
-    "yargs-parser": "^12.0.0"
+    "standard-version": "^6.0.1",
+    "yargs-parser": "^13.1.1"
   },
   "dependencies": {
     "flat": "^4.1.0",
     "lodash": "^4.17.15",
-    "yargs": "^12.0.5"
+    "yargs": "^13.3.0"
   }
 }
