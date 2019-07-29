@@ -39,7 +39,9 @@ function unparseOption(key, value, unparsed) {
         const flattened = flatten(value, { safe: true });
 
         for (const flattenedKey in flattened) {
-            unparseOption(`${key}.${flattenedKey}`, flattened[flattenedKey], unparsed);
+            if (!isCamelCased(flattenedKey, flattened)) {
+                unparseOption(`${key}.${flattenedKey}`, flattened[flattenedKey], unparsed);
+            }
         }
     // Fallback case (numbers and other types)
     } else if (value != null) {
