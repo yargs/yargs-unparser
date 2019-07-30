@@ -2,10 +2,11 @@
 
 const yargs = require('yargs/yargs');
 const flatten = require('flat');
-const { castArray, some, isPlainObject, camelCase, kebabCase, omitBy } = require('lodash');
+const { isPlainObject, camelCase, kebabCase } = require('lodash');
 
 function isAlias(key, alias) {
-    return some(alias, (aliases) => castArray(aliases).indexOf(key) !== -1);
+    // TODO Switch to Object.values one Node.js 6 is dropped
+    return Object.keys(alias).some((id) => [].concat(alias[id]).indexOf(key) !== -1);
 }
 
 function hasDefaultValue(key, value, defaults) {
@@ -78,20 +79,25 @@ function unparsePositional(argv, options, unparsed) {
 }
 
 function unparseOptions(argv, options, knownPositional, unparsed) {
-    const optionsArgv = omitBy(argv, (value, key) =>
-        // Remove positional arguments
-        knownPositional.includes(key) ||
-        // Remove special _, -- and $0
-        ['_', '--', '$0'].includes(key) ||
-        // Remove aliases
-        isAlias(key, options.alias) ||
-        // Remove default values
-        hasDefaultValue(key, value, options.default) ||
-        // Remove camel-cased
-        isCamelCased(key, argv));
+    for (const key of Object.keys(argv)) {
+        const value = argv[key];
 
-    for (const key in optionsArgv) {
-        unparseOption(key, optionsArgv[key], unparsed);
+        if (
+            // Remove positional arguments
+            knownPositional.includes(key) ||
+            // Remove special _, -- and $0
+            ['_', '--', '$0'].includes(key) ||
+            // Remove aliases
+            isAlias(key, options.alias) ||
+            // Remove default values
+            hasDefaultValue(key, value, options.default) ||
+            // Remove camel-cased
+            isCamelCased(key, argv)
+        ) {
+            continue;
+        }
+
+        unparseOption(key, argv[key], unparsed);
     }
 }
 

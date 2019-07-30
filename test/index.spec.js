@@ -130,10 +130,15 @@ describe('options', () => {
         const alias = {
             string: 's', // Single alias
             number: ['n', 'no'], // Multiple aliases
+            substr: 'substring',
         };
-        const argv = parse(['--string', 'foo', '--number', '1'], { alias });
+        const argv = parse(['--string', 'foo', '--number', '1', '--substr', 'a'], { alias });
 
-        expect(unparse(argv, { alias })).toEqual(['--string', 'foo', '--number', '1']);
+        expect(unparse(argv, { alias })).toEqual([
+            '--string', 'foo',
+            '--number', '1',
+            '--substr', 'a',
+        ]);
     });
 
     it('should filter flags with default values via `options.defaults`', () => {
