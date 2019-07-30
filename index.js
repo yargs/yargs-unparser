@@ -2,7 +2,7 @@
 
 const yargs = require('yargs/yargs');
 const flatten = require('flat');
-const {castArray, some, isPlainObject, camelCase, kebabCase, omitBy} = require('lodash');
+const { castArray, some, isPlainObject, camelCase, kebabCase, omitBy } = require('lodash');
 
 function isAlias(key, alias) {
     return some(alias, (aliases) => castArray(aliases).indexOf(key) !== -1);
