@@ -2,7 +2,9 @@
 
 const yargs = require('yargs/yargs');
 const flatten = require('flat');
-const { isPlainObject, camelCase, kebabCase } = require('lodash');
+const camelcase = require('camelcase');
+const decamelize = require('decamelize');
+const { isPlainObject } = require('lodash');
 
 function isAlias(key, alias) {
     // TODO Switch to Object.values one Node.js 6 is dropped
@@ -14,8 +16,8 @@ function hasDefaultValue(key, value, defaults) {
 }
 
 function isCamelCased(key, argv) {
-    return /[A-Z]/.test(key) && camelCase(key) === key && // Is it camel case?
-        argv[kebabCase(key)] != null; // Is the standard version defined?
+    return /[A-Z]/.test(key) && camelcase(key) === key && // Is it camel case?
+        argv[decamelize(key, '-')] != null; // Is the standard version defined?
 }
 
 function keyToFlag(key) {
