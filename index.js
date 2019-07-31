@@ -4,7 +4,7 @@ const yargs = require('yargs/yargs');
 const flatten = require('flat');
 const camelcase = require('camelcase');
 const decamelize = require('decamelize');
-const { isPlainObject } = require('lodash');
+const isPlainObj = require('is-plain-obj');
 
 function isAlias(key, alias) {
     // TODO Switch to Object.values one Node.js 6 is dropped
@@ -33,7 +33,7 @@ function unparseOption(key, value, unparsed) {
         unparsed.push(`--no-${key}`);
     } else if (Array.isArray(value)) {
         value.forEach((item) => unparseOption(key, item, unparsed));
-    } else if (isPlainObject(value)) {
+    } else if (isPlainObj(value)) {
         const flattened = flatten(value, { safe: true });
 
         for (const flattenedKey in flattened) {
