@@ -58,8 +58,10 @@
     "yargs-parser": "^13.1.1"
   },
   "dependencies": {
+    "camelcase": "^5.3.1",
+    "decamelize": "^1.2.0",
     "flat": "^4.1.0",
-    "lodash": "^4.17.15",
+    "is-plain-obj": "^1.1.0",
     "yargs": "^13.3.0"
   }
 }
