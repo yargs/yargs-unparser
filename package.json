@@ -55,7 +55,7 @@
     "lint-staged": "^9.2.1",
     "minimist": "^1.2.0",
     "standard-version": "^7.0.0",
-    "yargs-parser": "^13.1.1"
+    "yargs-parser": "^16.0.0"
   },
   "dependencies": {
     "camelcase": "^5.3.1",
