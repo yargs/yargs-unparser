@@ -14,10 +14,7 @@
     "node": ">=6"
   },
   "homepage": "https://github.com/yargs/yargs-unparser",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:yargs/yargs-unparser.git"
-  },
+  "repository": "yargs/yargs-unparser",
   "license": "MIT",
   "main": "index.js",
   "files": [],
