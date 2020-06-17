@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://www.github.com/yargs/yargs-unparser/compare/v1.6.1...v1.6.2) (2020-06-17)
+
+
+### Bug Fixes
+
+* **readme:** marketing was injected dubiously into README ([#60](https://www.github.com/yargs/yargs-unparser/issues/60)) ([1167667](https://www.github.com/yargs/yargs-unparser/commit/1167667886fcb103c747e3c9855f353ee0e41c03))
+
 ### [1.6.1](https://www.github.com/yargs/yargs-unparser/compare/v1.6.0...v1.6.1) (2020-06-17)
 
 
