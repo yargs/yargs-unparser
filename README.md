@@ -1,20 +1,10 @@
 # yargs-unparser
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependency status][david-dm-image]][david-dm-url] [![Dev Dependency status][david-dm-dev-image]][david-dm-dev-url] [![Greenkeeper badge][greenkeeper-image]][greenkeeper-url]
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url]
 
 [npm-url]:https://npmjs.org/package/yargs-unparser
 [npm-image]:http://img.shields.io/npm/v/yargs-unparser.svg
 [downloads-image]:http://img.shields.io/npm/dm/yargs-unparser.svg
-[travis-url]:https://travis-ci.org/yargs/yargs-unparser
-[travis-image]:http://img.shields.io/travis/yargs/yargs-unparser/master.svg
-[codecov-url]:https://codecov.io/gh/yargs/yargs-unparser
-[codecov-image]:https://img.shields.io/codecov/c/github/yargs/yargs-unparser/master.svg
-[david-dm-url]:https://david-dm.org/yargs/yargs-unparser
-[david-dm-image]:https://img.shields.io/david/yargs/yargs-unparser.svg
-[david-dm-dev-url]:https://david-dm.org/yargs/yargs-unparser?type=dev
-[david-dm-dev-image]:https://img.shields.io/david/dev/yargs/yargs-unparser.svg
-[greenkeeper-image]:https://badges.greenkeeper.io/yargs/yargs-unparser.svg
-[greenkeeper-url]:https://greenkeeper.io
 
 Converts back a `yargs` argv object to its original array form.
 
