@@ -42,7 +42,7 @@
   "dependencies": {
     "camelcase": "^5.3.1",
     "decamelize": "^1.2.0",
-    "flat": "^4.1.0",
+    "flat": "^5.0.2",
     "is-plain-obj": "^1.1.0",
     "yargs": "^14.2.3"
   }
