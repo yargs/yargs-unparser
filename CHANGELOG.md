@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.4](https://www.github.com/yargs/yargs-unparser/compare/v1.6.3...v1.6.4) (2020-10-01)
+
+
+### Bug Fixes
+
+* **security:** upgraded flat to version ^5.0.2 ([9bd7c67](https://www.github.com/yargs/yargs-unparser/commit/9bd7c672e12417319c5d4de79070d9c7cd5107f2))
+
 ### [1.6.3](https://www.github.com/yargs/yargs-unparser/compare/v1.6.2...v1.6.3) (2020-06-17)
 
 
