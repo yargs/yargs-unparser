@@ -3,6 +3,7 @@ on:
     branches:
       - master
   pull_request:
+    types: [ assigned, opened, synchronize, reopened, labeled ]
 name: ci
 jobs:
   test:
@@ -16,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: node --version
-      - run: npm install
+      - run: npm install --engines-strict
       - run: npm test
   windows:
     runs-on: windows-latest
