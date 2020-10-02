@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://www.github.com/yargs/yargs-unparser/compare/v1.6.4...v2.0.0) (2020-10-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade deps drop Node 6/8 (#71)
+
+### Code Refactoring
+
+* upgrade deps drop Node 6/8 ([#71](https://www.github.com/yargs/yargs-unparser/issues/71)) ([c686882](https://www.github.com/yargs/yargs-unparser/commit/c686882f5ad554be44169e3745e741cb4ec898d0))
+
 ### [1.6.4](https://www.github.com/yargs/yargs-unparser/compare/v1.6.3...v1.6.4) (2020-10-01)
 
 
