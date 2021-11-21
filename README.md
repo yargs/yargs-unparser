@@ -15,14 +15,14 @@ The code originally lived in [MOXY](https://github.com/moxystudio)'s GitHub but 
 
 ## Installation
 
-`$ npm install yargs-unparser`
-
+- Install `npm install yargs-unparser`
+- Add `{ "type": "module", "engines": { "node": ">=12.20" } }` to package.json
 
 ## Usage
 
 ```js
-const parse = require('yargs-parser');
-const unparse = require('yargs-unparser');
+import parse from 'yargs-parser';
+import unparse from 'yargs-unparser';
 
 const argv = parse(['--no-boolean', '--number', '4', '--string', 'foo'], {
     boolean: ['boolean'],
@@ -44,8 +44,8 @@ The second argument of `unparse` accepts an options object:
 ### Example with `command` options
 
 ```js
-const yargs = require('yargs');
-const unparse = require('yargs-unparser');
+import yargs from 'yargs';
+import unparse from 'yargs-unparser';
 
 const argv = yargs
     .command('my-command <positional>', 'My awesome command', (yargs) =>
@@ -72,7 +72,7 @@ If you `coerce` in weird ways, things might not work correctly.
 
 ## Tests
 
-`$ npm test`   
+`$ npm test`
 `$ npm test -- --watch` during development
 
 ## Supported Node.js Versions
