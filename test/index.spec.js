@@ -1,9 +1,7 @@
-'use strict';
-
-const yargs = require('yargs/yargs');
-const parse = require('yargs-parser');
-const minimist = require('minimist');
-const unparse = require('../');
+import yargs from 'yargs/yargs';
+import parse from 'yargs-parser';
+import minimist from 'minimist';
+import unparse from '../index.js';
 
 it('should unparse options whose values are primitives', () => {
     const argv = parse(['--no-boolean1', '--boolean2', '--number', '4', '--string', 'foo'], {

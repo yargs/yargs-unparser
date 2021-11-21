@@ -1,9 +1,7 @@
-'use strict';
-
-const flatten = require('flat');
-const camelcase = require('camelcase');
-const decamelize = require('decamelize');
-const isPlainObj = require('is-plain-obj');
+import flatten from 'flat';
+import camelcase from 'camelcase';
+import decamelize from 'decamelize';
+import isPlainObj from 'is-plain-obj';
 
 function isAlias(key, alias) {
     // TODO Switch to Object.values one Node.js 6 is dropped
@@ -163,4 +161,4 @@ function unparser(argv, options) {
     return unparsed;
 }
 
-module.exports = unparser;
+export default unparser;
