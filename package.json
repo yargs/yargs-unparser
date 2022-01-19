@@ -1,7 +1,7 @@
 {
-  "name": "yargs-unparser",
+  "name": "yargs-unparser-bak",
   "description": "Converts back a yargs argv object to its original array form",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "keywords": [
     "yargs",
     "unparse",
@@ -9,12 +9,12 @@
     "inverse",
     "argv"
   ],
-  "author": "André Cruz <andre@moxy.studio>",
+  "author": "gemwuu <gemwuu@github.com>",
   "engines": {
     "node": ">=10"
   },
-  "homepage": "https://github.com/yargs/yargs-unparser",
-  "repository": "yargs/yargs-unparser",
+  "homepage": "https://github.com/gemwuu/yargs-unparser.git",
+  "repository": "gemwuu/yargs-unparser",
   "license": "MIT",
   "main": "index.js",
   "files": [],

@@ -219,3 +219,26 @@ describe('interoperation with other libraries', () => {
         });
     });
 });
+
+describe('use equal mark as delimiter', () => {
+    it('should success', () => {
+        const argv = parse(['--no-cache', '--optimize', '--host', '0.0.0.0', '--collect', 'x', 'y', '--env', 'node', '--env', 'python'], {
+            boolean: ['cache', 'optimize'],
+            string: 'host',
+            array: ['collect', 'env'],
+        });
+        const argvArray = unparse(argv, {
+            delimiter: '=',
+        });
+
+        expect(argvArray).toEqual(['--no-cache', '--optimize', '--host=0.0.0.0', '--collect=x', '--collect=y', '--env=node', '--env=python']);
+
+        expect(minimist(argvArray)).toMatchObject({
+            cache: false,
+            optimize: true,
+            host: '0.0.0.0',
+            collect: ['x', 'y'],
+            env: ['node', 'python'],
+        });
+    });
+});
