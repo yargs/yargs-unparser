@@ -57,26 +57,38 @@ function parseCommand(cmd) {
     return parsedCommand;
 }
 
-function unparseOption(key, value, unparsed) {
+function unparseOption(key, value, unparsed, options) {
+    const delimiter = options.delimiter;
+    const useEqualSign = delimiter === '=';
+    const flaggedKey = keyToFlag(key);
+
     if (typeof value === 'string') {
-        unparsed.push(keyToFlag(key), value);
+        if (useEqualSign) {
+            unparsed.push(`${flaggedKey}=${value}`);
+        } else {
+            unparsed.push(flaggedKey, value);
+        }
     } else if (value === true) {
-        unparsed.push(keyToFlag(key));
+        unparsed.push(flaggedKey);
     } else if (value === false) {
         unparsed.push(`--no-${key}`);
     } else if (Array.isArray(value)) {
-        value.forEach((item) => unparseOption(key, item, unparsed));
+        value.forEach((item) => unparseOption(key, item, unparsed, options));
     } else if (isPlainObj(value)) {
         const flattened = flatten(value, { safe: true });
 
         for (const flattenedKey in flattened) {
             if (!isCamelCased(flattenedKey, flattened)) {
-                unparseOption(`${key}.${flattenedKey}`, flattened[flattenedKey], unparsed);
+                unparseOption(`${key}.${flattenedKey}`, flattened[flattenedKey], unparsed, options);
             }
         }
     // Fallback case (numbers and other types)
     } else if (value != null) {
-        unparsed.push(keyToFlag(key), `${value}`);
+        if (useEqualSign) {
+            unparsed.push(`${flaggedKey}=${value}`);
+        } else {
+            unparsed.push(flaggedKey, `${value}`);
+        }
     }
 }
 
@@ -130,7 +142,7 @@ function unparseOptions(argv, options, knownPositional, unparsed) {
             continue;
         }
 
-        unparseOption(key, argv[key], unparsed);
+        unparseOption(key, argv[key], unparsed, options);
     }
 }
 
