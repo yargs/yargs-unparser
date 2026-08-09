@@ -23,7 +23,7 @@ jobs:
           node-version: 22
           registry-url: 'https://external-dot-oss-automation.appspot.com'
         if: ${{ steps.release.outputs.release_created }}
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
         if: ${{ steps.release.outputs.release_created }}
       - run: npm publish
         env:
