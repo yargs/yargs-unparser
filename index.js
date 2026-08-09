@@ -6,7 +6,7 @@ const decamelize = require('decamelize');
 const isPlainObj = require('is-plain-obj');
 
 function isAlias(key, alias) {
-    // TODO Switch to Object.values one Node.js 6 is dropped
+    // TO DO Switch to Object.values one Node.js 6 is dropped
     return Object.keys(alias).some((id) => [].concat(alias[id]).indexOf(key) !== -1);
 }
 
