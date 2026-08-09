@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [10, 12, 14]
+        node: [20, 22]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
       - run: node --version
-      - run: npm install --engines-strict
+      - run: npm install --engines-strict --legacy-peer-deps
       - run: npm test
   windows:
     runs-on: windows-latest
@@ -25,6 +25,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
-      - run: npm install
+          node-version: 22
+      - run: npm install --legacy-peer-deps
       - run: npm test
