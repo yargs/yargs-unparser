@@ -34,7 +34,7 @@
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-moxy": "^7.1.0",
-    "jest": "^24.9.0",
+    "jest": "^30.5.1",
     "lint-staged": "^9.5.0",
     "yargs-parser": "^18.1.3"
   },
