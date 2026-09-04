@@ -32,7 +32,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
+    "eslint": "^10.10.0",
     "eslint-config-moxy": "^7.1.0",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
