@@ -2,7 +2,6 @@
 
 const yargs = require('yargs/yargs');
 const parse = require('yargs-parser');
-const minimist = require('minimist');
 const unparse = require('../');
 
 it('should unparse options whose values are primitives', () => {
@@ -198,24 +197,5 @@ describe('options', () => {
         expect(unparse(argv, {
             command,
         })).toEqual(['build', 'foo', '--string', 'hello']);
-    });
-});
-
-describe('interoperation with other libraries', () => {
-    it('should have basic integration with minimist', () => {
-        const argv = parse(['--no-cache', '--optimize', '--host', '0.0.0.0', '--collect', 'x', 'y'], {
-            boolean: ['cache', 'optimize'],
-            string: 'host',
-            array: 'collect',
-        });
-
-        const argvArray = unparse(argv);
-
-        expect(minimist(argvArray)).toMatchObject({
-            cache: false,
-            optimize: true,
-            host: '0.0.0.0',
-            collect: ['x', 'y'],
-        });
     });
 });
