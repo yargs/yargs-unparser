@@ -35,7 +35,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-n": "^18.5.0",
     "globals": "^17.14.0",
-    "jest": "^24.9.0",
+    "jest": "^30.5.2",
     "prettier": "^3.10.1",
     "yargs": "^17.7.3",
     "yargs-parser": "^18.1.3"
