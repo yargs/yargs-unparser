@@ -7,7 +7,9 @@ const isPlainObj = require('is-plain-obj');
 
 function isAlias(key, alias) {
     // TO DO Switch to Object.values one Node.js 6 is dropped
-    return Object.keys(alias).some((id) => [].concat(alias[id]).indexOf(key) !== -1);
+    return Object.keys(alias).some(
+        (id) => [].concat(alias[id]).indexOf(key) !== -1,
+    );
 }
 
 function hasDefaultValue(key, value, defaults) {
@@ -15,8 +17,11 @@ function hasDefaultValue(key, value, defaults) {
 }
 
 function isCamelCased(key, argv) {
-    return /[A-Z]/.test(key) && camelcase(key) === key && // Is it camel case?
-        argv[decamelize(key, '-')] != null; // Is the standard version defined?
+    return (
+        /[A-Z]/.test(key) &&
+        camelcase(key) === key && // Is it camel case?
+        argv[decamelize(key, '-')] != null // Is the standard version defined?
+    );
 }
 
 function keyToFlag(key) {
@@ -25,11 +30,14 @@ function keyToFlag(key) {
 
 function parseCommand(cmd) {
     const extraSpacesStrippedCommand = cmd.replace(/\s{2,}/g, ' ');
-    const splitCommand = extraSpacesStrippedCommand.split(/\s+(?![^[]*]|[^<]*>)/);
+    const splitCommand =
+        extraSpacesStrippedCommand.split(/\s+(?![^[]*]|[^<]*>)/);
     const bregex = /\.*[\][<>]/g;
     const firstCommand = splitCommand.shift();
 
-    if (!firstCommand) { throw new Error(`No command found in: ${cmd}`); }
+    if (!firstCommand) {
+        throw new Error(`No command found in: ${cmd}`);
+    }
     const parsedCommand = {
         cmd: firstCommand.replace(bregex, ''),
         demanded: [],
@@ -40,7 +48,9 @@ function parseCommand(cmd) {
         let variadic = false;
 
         cmd = cmd.replace(/\s/g, '');
-        if (/\.+[\]>]/.test(cmd) && i === splitCommand.length - 1) { variadic = true; }
+        if (/\.+[\]>]/.test(cmd) && i === splitCommand.length - 1) {
+            variadic = true;
+        }
         if (/^\[/.test(cmd)) {
             parsedCommand.optional.push({
                 cmd: cmd.replace(bregex, '').split('|'),
@@ -71,10 +81,14 @@ function unparseOption(key, value, unparsed) {
 
         for (const flattenedKey in flattened) {
             if (!isCamelCased(flattenedKey, flattened)) {
-                unparseOption(`${key}.${flattenedKey}`, flattened[flattenedKey], unparsed);
+                unparseOption(
+                    `${key}.${flattenedKey}`,
+                    flattened[flattenedKey],
+                    unparsed,
+                );
             }
         }
-    // Fallback case (numbers and other types)
+        // Fallback case (numbers and other types)
     } else if (value != null) {
         unparsed.push(keyToFlag(key), `${value}`);
     }
@@ -87,7 +101,9 @@ function unparsePositional(argv, options, unparsed) {
     // e.g.: build <first> <second> <rest...>
     if (options.command) {
         const { 0: cmd, index } = options.command.match(/[^<[]*/);
-        const { demanded, optional } = parseCommand(`foo ${options.command.substr(index + cmd.length)}`);
+        const { demanded, optional } = parseCommand(
+            `foo ${options.command.substr(index + cmd.length)}`,
+        );
 
         // Push command (can be a deep command)
         unparsed.push(...cmd.trim().split(/\s+/));
@@ -98,8 +114,8 @@ function unparsePositional(argv, options, unparsed) {
 
             const cmd = cmds[0];
             const args = (variadic ? argv[cmd] || [] : [argv[cmd]])
-            .filter((arg) => arg != null)
-            .map((arg) => `${arg}`);
+                .filter((arg) => arg != null)
+                .map((arg) => `${arg}`);
 
             unparsed.push(...args);
         });
@@ -142,11 +158,14 @@ function unparseEndOfOptions(argv, options, unparsed) {
 // ------------------------------------------------------------
 
 function unparser(argv, options) {
-    options = Object.assign({
-        alias: {},
-        default: {},
-        command: null,
-    }, options);
+    options = Object.assign(
+        {
+            alias: {},
+            default: {},
+            command: null,
+        },
+        options,
+    );
 
     const unparsed = [];
 

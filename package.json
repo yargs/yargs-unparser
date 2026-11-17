@@ -19,23 +19,25 @@
   "main": "index.js",
   "files": [],
   "scripts": {
-    "lint": "eslint .",
-    "fix": "eslint . --fix",
-    "test": "jest --env node --coverage",
-    "prerelease": "npm t && npm run lint",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "check": "npm run check:lint && npm run check:format",
+    "check:format": "prettier --check .",
+    "check:lint": "eslint .",
+    "fix": "npm run fix:lint && npm run fix:format",
+    "fix:format": "prettier --write .",
+    "fix:lint": "eslint . --fix",
+    "posttest": "npm run check",
+    "prerelease": "npm t",
+    "test": "jest --env node --coverage"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
-    "eslint-config-moxy": "^7.1.0",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^18.5.0",
+    "globals": "^17.14.0",
     "jest": "^24.9.0",
-    "lint-staged": "^9.5.0",
+    "prettier": "^3.10.1",
+    "yargs": "^17.7.3",
     "yargs-parser": "^18.1.3"
   },
   "dependencies": {

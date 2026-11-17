@@ -5,29 +5,79 @@ const parse = require('yargs-parser');
 const unparse = require('../');
 
 it('should unparse options whose values are primitives', () => {
-    const argv = parse(['--no-boolean1', '--boolean2', '--number', '4', '--string', 'foo'], {
-        number: 'number',
-        string: 'string',
-        boolean: ['boolean1', 'boolean2'],
-    });
+    const argv = parse(
+        ['--no-boolean1', '--boolean2', '--number', '4', '--string', 'foo'],
+        {
+            number: 'number',
+            string: 'string',
+            boolean: ['boolean1', 'boolean2'],
+        },
+    );
 
-    expect(unparse(argv)).toEqual(['--no-boolean1', '--boolean2', '--number', '4', '--string', 'foo']);
+    expect(unparse(argv)).toEqual([
+        '--no-boolean1',
+        '--boolean2',
+        '--number',
+        '4',
+        '--string',
+        'foo',
+    ]);
 });
 
 it('should unparse options whose values are arrays', () => {
-    const argv = parse(['--array1', '1', '2', '--array2', '3', '--array2', '4'], {
-        array: ['array1', 'array2'],
-    });
+    const argv = parse(
+        ['--array1', '1', '2', '--array2', '3', '--array2', '4'],
+        {
+            array: ['array1', 'array2'],
+        },
+    );
 
-    expect(unparse(argv)).toEqual(['--array1', '1', '--array1', '2', '--array2', '3', '--array2', '4']);
+    expect(unparse(argv)).toEqual([
+        '--array1',
+        '1',
+        '--array1',
+        '2',
+        '--array2',
+        '3',
+        '--array2',
+        '4',
+    ]);
 });
 
 it('should unparse options whose values are objects', () => {
-    const argv = parse(['--foo.x', 'x', '--foo.y', 'y', '--foo.w', '1', '2', '--foo.z', '3', '--foo.z', '4'], {
-        array: ['foo.w', 'foo.z'],
-    });
+    const argv = parse(
+        [
+            '--foo.x',
+            'x',
+            '--foo.y',
+            'y',
+            '--foo.w',
+            '1',
+            '2',
+            '--foo.z',
+            '3',
+            '--foo.z',
+            '4',
+        ],
+        {
+            array: ['foo.w', 'foo.z'],
+        },
+    );
 
-    expect(unparse(argv)).toEqual(['--foo.x', 'x', '--foo.y', 'y', '--foo.w', '1', '--foo.w', '2', '--foo.z', '3', '--foo.z', '4']);
+    expect(unparse(argv)).toEqual([
+        '--foo.x',
+        'x',
+        '--foo.y',
+        'y',
+        '--foo.w',
+        '1',
+        '--foo.w',
+        '2',
+        '--foo.z',
+        '3',
+        '--foo.z',
+        '4',
+    ]);
 });
 
 it('should unparse options whose values are not primitives, arrays or objects', () => {
@@ -39,11 +89,13 @@ it('should unparse options whose values are not primitives, arrays or objects', 
 
     const date = new Date(1502708276274);
 
-    expect(unparse({
-        foo: date,
-        bar: /bar/,
-        baz: new Baz(),
-    })).toEqual(['--foo', date.toString(), '--bar', '/bar/', '--baz', 'baz']);
+    expect(
+        unparse({
+            foo: date,
+            bar: /bar/,
+            baz: new Baz(),
+        }),
+    ).toEqual(['--foo', date.toString(), '--bar', '/bar/', '--baz', 'baz']);
 });
 
 it('should unparse options whose values are empty strings correctly', () => {
@@ -131,12 +183,18 @@ describe('options', () => {
             number: ['n', 'no'], // Multiple aliases
             substr: 'substring',
         };
-        const argv = parse(['--string', 'foo', '--number', '1', '--substr', 'a'], { alias });
+        const argv = parse(
+            ['--string', 'foo', '--number', '1', '--substr', 'a'],
+            { alias },
+        );
 
         expect(unparse(argv, { alias })).toEqual([
-            '--string', 'foo',
-            '--number', '1',
-            '--substr', 'a',
+            '--string',
+            'foo',
+            '--number',
+            '1',
+            '--substr',
+            'a',
         ]);
     });
 
@@ -150,52 +208,80 @@ describe('options', () => {
     it('should handle known positional arguments specified via `options.command`', () => {
         const command = 'build <first> [second] [rest..]';
         const argv = yargs()
-        .help(false)
-        .version(false)
-        .command(command, '', (yargs) => yargs, () => {})
-        .parse(['build', 'foo', 'foz', 'bar', 'baz', '--string', 'hello']);
+            .help(false)
+            .version(false)
+            .command(
+                command,
+                '',
+                (yargs) => yargs,
+                () => {},
+            )
+            .parse(['build', 'foo', 'foz', 'bar', 'baz', '--string', 'hello']);
 
-        expect(unparse(argv, {
-            command,
-        })).toEqual(['build', 'foo', 'foz', 'bar', 'baz', '--string', 'hello']);
+        expect(
+            unparse(argv, {
+                command,
+            }),
+        ).toEqual(['build', 'foo', 'foz', 'bar', 'baz', '--string', 'hello']);
     });
 
     it('should handle optional known positional arguments specified via `options.command`', () => {
         const command = 'build [first] [rest..]';
         const argv = yargs()
-        .help(false)
-        .version(false)
-        .command(command, '', (yargs) => yargs, () => {})
-        .parse(['build', '--string', 'hello']);
+            .help(false)
+            .version(false)
+            .command(
+                command,
+                '',
+                (yargs) => yargs,
+                () => {},
+            )
+            .parse(['build', '--string', 'hello']);
 
-        expect(unparse(argv, {
-            command,
-        })).toEqual(['build', '--string', 'hello']);
+        expect(
+            unparse(argv, {
+                command,
+            }),
+        ).toEqual(['build', '--string', 'hello']);
     });
 
     it('should handle unknown positional arguments when `options.command` is set', () => {
         const command = 'build <first>';
         const argv = yargs()
-        .help(false)
-        .version(false)
-        .command(command, '', (yargs) => yargs, () => {})
-        .parse(['build', 'foo', 'foz', '--string', 'hello']);
+            .help(false)
+            .version(false)
+            .command(
+                command,
+                '',
+                (yargs) => yargs,
+                () => {},
+            )
+            .parse(['build', 'foo', 'foz', '--string', 'hello']);
 
-        expect(unparse(argv, {
-            command,
-        })).toEqual(['build', 'foo', 'foz', '--string', 'hello']);
+        expect(
+            unparse(argv, {
+                command,
+            }),
+        ).toEqual(['build', 'foo', 'foz', '--string', 'hello']);
     });
 
     it('should handle positional arguments with alias specified in `options.command`', () => {
         const command = 'build <first|f>';
         const argv = yargs()
-        .help(false)
-        .version(false)
-        .command(command, '', (yargs) => yargs, () => {})
-        .parse(['build', 'foo', '--string', 'hello']);
+            .help(false)
+            .version(false)
+            .command(
+                command,
+                '',
+                (yargs) => yargs,
+                () => {},
+            )
+            .parse(['build', 'foo', '--string', 'hello']);
 
-        expect(unparse(argv, {
-            command,
-        })).toEqual(['build', 'foo', '--string', 'hello']);
+        expect(
+            unparse(argv, {
+                command,
+            }),
+        ).toEqual(['build', 'foo', '--string', 'hello']);
     });
 });
